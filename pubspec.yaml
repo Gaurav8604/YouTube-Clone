@@ -57,8 +57,13 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - assets/images/ytlogo.png
     - assets/images/flutter.png
+    - assets/gifs/cars1.gif
+    - assets/gifs/sound.gif
+    - assets/logos/youtube-logo.png
+    - assets/logos/youtube-kids.png
+    - assets/logos/youtube-studio.png
+    - assets/logos/youtube-music.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
@@ -68,9 +73,9 @@ flutter:
   # https://flutter.dev/assets-and-images/#resolution-aware
 
   fonts:
-    - family: YoutubeShorts
+    - family: YouTubeIcons
       fonts:
-        - asset: assets/fonts/YoutubeShorts.ttf
+        - asset: assets/fonts/YouTubeIcons.ttf
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
   # To add custom fonts to your application, add a fonts section here,

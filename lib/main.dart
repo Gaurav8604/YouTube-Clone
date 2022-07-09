@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:youtube_clone/routes.dart';
-import 'package:youtube_clone/shorts.dart';
-import 'package:youtube_clone/youtube_shorts_icons.dart';
+import 'package:youtube_clone/AppBar/account_info.dart';
+import 'package:youtube_clone/AppBar/notifications.dart';
+import 'package:youtube_clone/AppBar/search.dart';
+import 'package:youtube_clone/BottomNavigationBar/home.dart';
+import 'package:youtube_clone/BottomNavigationBar/library.dart';
+import 'package:youtube_clone/BottomNavigationBar/shorts.dart';
+import 'package:youtube_clone/BottomNavigationBar/subscriptions.dart';
+import 'package:youtube_clone/IconsFile/youtube_icons.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,29 +25,19 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData(
         brightness: Brightness.dark,
       ),
-      home: const HomePage(),
-      routes: {
-        '/home/': (context) => const HomePage(),
-        '/shorts/': (context) => const ShortsView(),
-        '/subscriptions/': (context) => const ShortsView(),
-        '/library/': (context) => const ShortsView(),
-        '/screencast/': (context) => const ShortsView(),
-        '/notifications/': (context) => const ShortsView(),
-        '/search/': (context) => const ShortsView(),
-        '/account/': (context) => const ShortsView(),
-      },
+      home: const MainPage(),
     );
   }
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
+class MainPage extends StatefulWidget {
+  const MainPage({Key? key}) : super(key: key);
+  static bool showAppbar = false;
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<MainPage> createState() => _MainPage();
 }
 
-class _HomePageState extends State<HomePage> {
+class _MainPage extends State<MainPage> {
   int _cIndex = 0;
   void _incrementTab(index) {
     setState(() {
@@ -50,55 +45,78 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  final _pages = <Widget>[
+    const HomeView(),
+    const ShortsView(),
+    const HomeView(),
+    const SubscriptionsView(),
+    const LibraryView(),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        leading: Image.asset(
-          'assets/images/ytlogo.png',
-        ),
-        leadingWidth: 60,
-        title: Text("YouTube",
-            style: Theme.of(context).appBarTheme.titleTextStyle),
-        actions: <Widget>[
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.cast_outlined),
-            iconSize: 30,
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.notifications_outlined),
-            iconSize: 30,
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.search),
-            iconSize: 30,
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.account_circle),
-            iconSize: 30,
-          ),
-        ],
-      ),
-      body: ListView.separated(
-        itemCount: 3,
-        itemBuilder: (context, index) {
-          return Column(
-            children: [thumbnail, title],
-          );
-        },
-        separatorBuilder: (context, index) {
-          return const Divider(
-            height: 10,
-            thickness: 1,
-            color: Colors.grey,
-          );
-        },
-      ),
+      appBar: MainPage.showAppbar
+          ? null
+          : AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              leading: Image.asset(
+                'assets/logos/youtube-logo.png',
+              ),
+              leadingWidth: 60,
+              title: Text("YouTube",
+                  style: Theme.of(context).appBarTheme.titleTextStyle),
+              actions: <Widget>[
+                IconButton(
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return alertDialog;
+                        });
+                  },
+                  icon: const Icon(Icons.cast_outlined),
+                  iconSize: 30,
+                ),
+                IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (BuildContext context) {
+                        return const NotificationsView();
+                      }),
+                    );
+                  },
+                  icon: const Icon(Icons.notifications_outlined),
+                  iconSize: 30,
+                ),
+                IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return const SearchView();
+                        },
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.search),
+                  iconSize: 30,
+                ),
+                IconButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (BuildContext context) {
+                      return const AccountDetailsView();
+                    }));
+                  },
+                  icon: const Icon(Icons.account_circle),
+                  iconSize: 30,
+                ),
+              ],
+            ),
+      body: _pages[_cIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _cIndex,
@@ -108,7 +126,7 @@ class _HomePageState extends State<HomePage> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(YoutubeShorts.shorts),
+            icon: Icon(YouTubeIcons.shorts),
             label: 'Shorts',
           ),
           BottomNavigationBarItem(
@@ -125,28 +143,101 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
         onTap: (index) {
+          if (index == 1) {
+            MainPage.showAppbar = true;
+          } else {
+            MainPage.showAppbar = false;
+          }
+          if (index == 2) {
+            showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  return SizedBox(
+                      height: 300,
+                      child: Column(
+                        children: const <Widget>[
+                          Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Text(
+                              "Create",
+                              textAlign: TextAlign.right,
+                              style: TextStyle(fontSize: 25),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(10),
+                            child: createShort,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(10),
+                            child: uploadVideo,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(10),
+                            child: goLive,
+                          ),
+                        ],
+                      ));
+                });
+
+            index = 0;
+          }
           _incrementTab(index);
-          if (index == 1) Navigator.of(context).pushNamed(shortsRoute);
         },
       ),
     );
   }
 }
 
-final Widget thumbnail = Container(
-  width: 400,
-  height: 160,
-  color: Colors.teal,
-  child: Image.asset('assets/images/flutter.png'),
-);
-const Widget title = ListTile(
+const Widget createShort = ListTile(
   leading: Icon(
-    Icons.account_circle,
-    size: 45,
+    YouTubeIcons.shorts,
+    size: 50,
   ),
-  title: Text("Title Here", style: TextStyle(fontSize: 18)),
-  subtitle: Text(
-    "Subtitle Here",
-    style: TextStyle(fontSize: 12),
+  title: Text(
+    "  Create a Short",
+    style: TextStyle(fontSize: 18),
   ),
 );
+const Widget uploadVideo = ListTile(
+  leading: Icon(
+    YouTubeIcons.uploadvideo,
+    size: 50,
+  ),
+  title: Text(
+    "  Upload a video",
+    style: TextStyle(fontSize: 18),
+  ),
+);
+const Widget goLive = ListTile(
+  leading: Icon(
+    YouTubeIcons.golive,
+    size: 50,
+  ),
+  title: Text(
+    "  Go Live",
+    style: TextStyle(fontSize: 18),
+  ),
+);
+
+final Widget alertDialog = AlertDialog(
+    title: const Text("Connect to a device"),
+    content: SizedBox(
+      height: 170,
+      child: Column(
+        children: const [
+          ListTile(
+            leading: CircularProgressIndicator(),
+            title: Text("Searching for devices"),
+          ),
+          ListTile(
+            leading: Icon(Icons.phonelink),
+            title: Text("Link with TV code"),
+          ),
+          ListTile(
+            leading: Icon(Icons.info),
+            title: Text("Learn More"),
+          )
+        ],
+      ),
+    ));
