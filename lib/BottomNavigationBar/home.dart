@@ -12,22 +12,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.separated(
-        controller: AppbarController.scrollController,
-        itemCount: 3,
-        itemBuilder: (context, index) {
-          return Column(
-            children: [thumbnail, title],
-          );
-        },
-        separatorBuilder: (context, index) {
-          return const Divider(
-            height: 10,
-            thickness: 1,
-            color: Colors.grey,
-          );
-        },
-      ),
+      body: listView,
     );
   }
 }
@@ -41,9 +26,29 @@ const Widget title = ListTile(
     Icons.account_circle,
     size: 45,
   ),
-  title: Text("Title Here", style: TextStyle(fontSize: 18)),
+  title: Text(
+    "Title Here",
+    style: TextStyle(fontSize: 18),
+  ),
   subtitle: Text(
     "Subtitle Here",
     style: TextStyle(fontSize: 12),
   ),
+);
+
+final Widget listView = ListView.separated(
+  controller: AppbarController.scrollController,
+  itemCount: 3,
+  itemBuilder: (context, index) {
+    return Column(
+      children: [thumbnail, title],
+    );
+  },
+  separatorBuilder: (context, index) {
+    return const Divider(
+      height: 10,
+      thickness: 1,
+      color: Colors.grey,
+    );
+  },
 );

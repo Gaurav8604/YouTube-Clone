@@ -19,7 +19,9 @@ class SearchView extends StatelessWidget {
         ),
         actions: [
           IconButton(
-              onPressed: () {}, icon: const Icon(Icons.keyboard_voice_rounded))
+            onPressed: () {},
+            icon: const Icon(Icons.keyboard_voice_rounded),
+          )
         ],
       ),
     );

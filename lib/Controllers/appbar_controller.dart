@@ -26,7 +26,7 @@ class _AppbarControllerState extends State<AppbarController> {
         }
         if (AppbarController.scrollController.position.userScrollDirection ==
             ScrollDirection.forward) {
-          if (!isScrollingDown) {
+          if (isScrollingDown) {
             isScrollingDown = false;
             MainPage.showAppbar = true;
             setState(() {});
@@ -38,6 +38,7 @@ class _AppbarControllerState extends State<AppbarController> {
 
   @override
   void dispose() {
+    AppbarController.scrollController.dispose();
     AppbarController.scrollController.removeListener(() {});
     super.dispose();
   }

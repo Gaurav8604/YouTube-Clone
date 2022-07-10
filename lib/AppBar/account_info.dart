@@ -59,7 +59,9 @@ final Widget yourChannel = Column(
       trailing: Icon(Icons.navigate_next),
     ),
     TextButton(
-        onPressed: () {}, child: const Text("Manage your Google Account")),
+      onPressed: () {},
+      child: const Text("Manage your Google Account"),
+    ),
     const ListTile(
       leading: Icon(Icons.account_box),
       title: Text("Your Channel"),

@@ -16,10 +16,11 @@ class NotificationsView extends StatelessWidget {
           IconButton(
             onPressed: () {
               showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return alertDialog;
-                  });
+                context: context,
+                builder: (BuildContext context) {
+                  return alertDialog;
+                },
+              );
             },
             icon: const Icon(
               Icons.cast_outlined,
@@ -27,10 +28,14 @@ class NotificationsView extends StatelessWidget {
           ),
           IconButton(
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (BuildContext context) {
-                return const SearchView();
-              }));
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return const SearchView();
+                  },
+                ),
+              );
             },
             icon: const Icon(Icons.search),
           ),
@@ -40,7 +45,7 @@ class NotificationsView extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
+      body: ListView(
         children: [
           Row(
             children: [
@@ -76,7 +81,9 @@ class NotificationsView extends StatelessWidget {
 
 final Widget thisWeek = Column(
   children: [
-    const ListTile(title: Text("This Week")),
+    const ListTile(
+      title: Text("This Week"),
+    ),
     ListTile(
       leading: const Icon(Icons.account_circle),
       title: const Text("Video Name"),
@@ -87,42 +94,66 @@ final Widget thisWeek = Column(
       ),
     ),
     ListTile(
-        leading: const Icon(Icons.account_circle),
-        title: const Text("Video Name"),
-        subtitle: const Text("7 days ago"),
-        trailing: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.more_vert),
-        )),
+      leading: const Icon(Icons.account_circle),
+      title: const Text("Video Name"),
+      subtitle: const Text("7 days ago"),
+      trailing: IconButton(
+        onPressed: () {},
+        icon: const Icon(Icons.more_vert),
+      ),
+    ),
     ListTile(
-        leading: const Icon(Icons.account_circle),
-        title: const Text("Video Name"),
-        subtitle: const Text("9 days ago"),
-        trailing: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.more_vert),
-        ))
+      leading: const Icon(Icons.account_circle),
+      title: const Text("Video Name"),
+      subtitle: const Text("11 days ago"),
+      trailing: IconButton(
+        onPressed: () {},
+        icon: const Icon(Icons.more_vert),
+      ),
+    ),
+    ListTile(
+      leading: const Icon(Icons.account_circle),
+      title: const Text("Video Name"),
+      subtitle: const Text("13 days ago"),
+      trailing: IconButton(
+        onPressed: () {},
+        icon: const Icon(Icons.more_vert),
+      ),
+    ),
   ],
 );
 
 final Widget older = Column(
   children: [
-    const ListTile(title: Text("Older")),
+    const ListTile(
+      title: Text("Older"),
+    ),
     ListTile(
-        leading: const Icon(Icons.account_circle),
-        title: const Text("Video Name"),
-        subtitle: const Text("21 days ago"),
-        trailing: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.more_vert),
-        )),
+      leading: const Icon(Icons.account_circle),
+      title: const Text("Video Name"),
+      subtitle: const Text("21 days ago"),
+      trailing: IconButton(
+        onPressed: () {},
+        icon: const Icon(Icons.more_vert),
+      ),
+    ),
     ListTile(
-        leading: const Icon(Icons.account_circle),
-        title: const Text("Video Name"),
-        subtitle: const Text("25 days ago"),
-        trailing: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.more_vert),
-        ))
+      leading: const Icon(Icons.account_circle),
+      title: const Text("Video Name"),
+      subtitle: const Text("25 days ago"),
+      trailing: IconButton(
+        onPressed: () {},
+        icon: const Icon(Icons.more_vert),
+      ),
+    ),
+    ListTile(
+      leading: const Icon(Icons.account_circle),
+      title: const Text("Video Name"),
+      subtitle: const Text("27 days ago"),
+      trailing: IconButton(
+        onPressed: () {},
+        icon: const Icon(Icons.more_vert),
+      ),
+    ),
   ],
 );

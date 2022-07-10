@@ -6,38 +6,44 @@ class LibraryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: ListView(
-      children: <Widget>[
-        Flexible(child: history),
-        Flexible(child: videos),
-        Flexible(child: yourVideosdownloads),
-        Flexible(child: playlist),
-      ],
-    ));
+      body: ListView(
+        children: <Widget>[
+          history,
+          videos,
+          yourVideosdownloads,
+          playlist,
+        ],
+      ),
+    );
   }
 }
 
 final Widget history = ListTile(
   leading: const Icon(Icons.history),
   title: const Text("History"),
-  trailing: TextButton(onPressed: () {}, child: const Text("VIEW ALL")),
+  trailing: TextButton(
+    onPressed: () {},
+    child: const Text("VIEW ALL"),
+  ),
 );
 
 //history videos slider
 final Widget videos = SizedBox(
-    height: 175,
-    child: ListView.builder(
-        itemExtent: 175,
-        itemCount: 5,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          return Column(
-            children: [
-              thumbnail,
-              textUnderThumbnail,
-            ],
-          );
-        }));
+  height: 175,
+  child: ListView.builder(
+    itemExtent: 175,
+    itemCount: 5,
+    scrollDirection: Axis.horizontal,
+    itemBuilder: (context, index) {
+      return Column(
+        children: [
+          thumbnail,
+          textUnderThumbnail,
+        ],
+      );
+    },
+  ),
+);
 
 final Widget thumbnail = Image.asset(
   'assets/images/flutter.png',
@@ -66,7 +72,7 @@ final Widget yourVideosdownloads = Column(
     ListTile(
       leading: Icon(Icons.local_movies),
       title: Text("Your movies"),
-    )
+    ),
   ],
 );
 
