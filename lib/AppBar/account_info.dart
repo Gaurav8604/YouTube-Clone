@@ -12,7 +12,6 @@ class _AccountDetailsViewState extends State<AccountDetailsView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
         elevation: 0,
         leading: GestureDetector(
           child: IconButton(

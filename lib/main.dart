@@ -14,13 +14,18 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+          color: Colors.white,
+          foregroundColor: Colors.black,
+        ),
         brightness: Brightness.light,
-        primaryColor: Colors.transparent,
+        primaryColor: Colors.white,
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
@@ -59,7 +64,6 @@ class _MainPage extends State<MainPage> {
       appBar: MainPage.showAppbar
           ? null
           : AppBar(
-              backgroundColor: Colors.transparent,
               elevation: 0,
               leading: Image.asset(
                 'assets/logos/youtube-logo.png',
